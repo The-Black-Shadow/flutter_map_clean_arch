@@ -1,0 +1,1 @@
+// This file contains the location entity for the map feature

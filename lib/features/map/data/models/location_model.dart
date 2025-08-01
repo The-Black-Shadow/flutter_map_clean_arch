@@ -1,0 +1,1 @@
+// This file contains the location model for the map feature

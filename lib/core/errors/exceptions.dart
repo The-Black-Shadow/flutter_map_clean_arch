@@ -1,0 +1,1 @@
+// This file contains custom exceptions for the app

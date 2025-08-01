@@ -1,0 +1,1 @@
+// This file contains custom failures for the app
