@@ -5,18 +5,32 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val dotEnvFile = rootProject.file("../.env")
+var mapsApiKey = ""
+if (dotEnvFile.exists()) {
+    dotEnvFile.forEachLine { line ->
+        if (line.startsWith("MAPS_API_KEY=")) {
+            mapsApiKey = line.substring("MAPS_API_KEY=".length)
+        }
+    }
+}
+if (mapsApiKey.isEmpty()) {
+    throw GradleException("Missing MAPS_API_KEY in .env file. Please add it.")
+}
+
+
 android {
     namespace = "com.tshadow.flutter_map_clean_arch"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     defaultConfig {
@@ -28,6 +42,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        resValue("string", "maps_api_key", mapsApiKey)
     }
 
     buildTypes {
