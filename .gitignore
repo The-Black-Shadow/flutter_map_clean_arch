@@ -46,4 +46,4 @@ app.*.map.json
 
 
 # Local env file
-.env
+node_modules
